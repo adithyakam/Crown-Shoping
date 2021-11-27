@@ -1,5 +1,10 @@
 import UserActionTypes from './user.types';
 
+
+export const loadingSIgnIn=()=>{
+  return{type:'Sign_IN_LOADING'}
+}
+
 export const googleSignInStart = () => ({
   type: UserActionTypes.GOOGLE_SIGN_IN_START
 });
