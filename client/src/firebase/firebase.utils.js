@@ -14,12 +14,56 @@ const config = {
 
 firebase.initializeApp(config);
 
+export const ordersCreation=async(orders,currentUser)=>{
+
+
+  const userRef = firestore.doc(`users/${currentUser.id}`);
+
+  const snapShot = await userRef.get();
+
+  let prev
+
+  if(currentUser.prevOrders){
+    prev=[...currentUser.prevOrders]
+  }else{
+    prev=[]
+  }
+
+
+  let prevOrders =[...prev,...orders]
+
+  console.log(prev,'prev',orders,'orders',prevOrders);
+
+const {createdAt,displayName,email} =currentUser
+
+
+  try {
+     await userRef.set({
+      createdAt,
+      displayName,
+      email,
+      prevOrders
+    })
+
+     
+  } catch (error) {
+    return  new Error('cant able to update previous order')
+  }
+
+
+
+return userRef
+}
+
+
+
 export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
 
   const userRef = firestore.doc(`users/${userAuth.uid}`);
 
   const snapShot = await userRef.get();
+
 
   if (!snapShot.exists) {
     const { displayName, email } = userAuth;

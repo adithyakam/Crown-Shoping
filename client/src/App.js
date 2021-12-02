@@ -11,6 +11,7 @@ import { GlobalStyle } from './global.styles';
 
 import { selectCurrentUser } from './redux/user/user.selectors';
 import { checkUserSession } from './redux/user/user.actions';
+import Order from './components/Order/Order.component';
 
 const HomePage = lazy(() => import('./pages/homepage/homepage.component'));
 const ShopPage = lazy(() => import('./pages/shop/shop.component'));
@@ -34,12 +35,22 @@ const App = ({ checkUserSession, currentUser }) => {
             <Route exact path='/' component={HomePage} />
             <Route path='/shop' component={ShopPage} />
             <Route exact path='/checkout' component={CheckoutPage} />
+            <Route exact path='/order' component={Order} />
+
             <Route
               exact
               path='/signin'
               render={() =>
                 currentUser ? <Redirect to='/' /> : <SignInAndSignUpPage />
               }
+            />
+            <Route
+            exact
+            path='/order'
+            render={() =>
+              currentUser ? <Redirect to='/order' /> : <SignInAndSignUpPage />
+            }
+            
             />
           </Suspense>
         </ErrorBoundary>

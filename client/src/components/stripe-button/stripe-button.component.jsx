@@ -3,9 +3,12 @@ import StripeCheckout from 'react-stripe-checkout';
 import axios from 'axios';
 import mainLogo from'../../assets/crown.svg';
 
+import { connect, useDispatch } from 'react-redux';
+import { moveOrder } from '../../redux/cart/cart.actions';
+
+const StripeCheckoutButton = ({ price,cartItems,moveOrder,currentUser }) => {
 
 
-const StripeCheckoutButton = ({ price }) => {
   const priceForStripe = price * 100;
   const publishableKey = 'pk_test_51HGb9dCgtVEMMSlAv6nacRAG6UFhqOrcao58OU28XqcshPvwqbDDf3cm6Q1t3EcpZUHBmGxe8uQYBVIIkKt38Ry400954qD00W';
 
@@ -19,7 +22,11 @@ const StripeCheckoutButton = ({ price }) => {
       }
     })
       .then(response => {
+        moveOrder(cartItems,currentUser)
+
         alert('succesful payment');
+
+
       })
       .catch(error => {
         console.log('Payment Error: ', (error));
@@ -42,7 +49,20 @@ const StripeCheckoutButton = ({ price }) => {
       token={onToken}
       stripeKey={publishableKey}
     />
+    // <button onClick={onToken}>click</button>
   );
 };
 
-export default StripeCheckoutButton;
+
+const mds=(state)=>{
+  return {
+    cartItems:state.cart.cartItems,
+    currentUser:state.user.currentUser
+  }
+}
+
+const msp=(dispatch)=>({
+  moveOrder:(items,currentUser)=>dispatch(moveOrder(items,currentUser))
+})
+
+export default connect(mds,msp)(StripeCheckoutButton);

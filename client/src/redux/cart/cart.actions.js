@@ -22,3 +22,9 @@ export const clearItemFromCart = item => ({
 export const clearCart = () => ({
   type: CartActionTypes.CLEAR_CART
 });
+
+
+export const moveOrder=(item,currentUser)=>({
+  type:CartActionTypes.ORDERS,
+  payload:{item,currentUser}
+})

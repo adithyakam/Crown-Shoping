@@ -10,6 +10,11 @@ const userReducer = (state = INITIAL_STATE, action) => {
   
   switch (action.type) {
 
+    case 'ORDER_UPDATE':return{
+      ...state,
+      currentUser:{...state.currentUser,...action.payload}
+    }
+
     case 'Sign_IN_LOADING':return{
       ...state,
       loadingUser:true

@@ -5,6 +5,13 @@ export const loadingSIgnIn=()=>{
   return{type:'Sign_IN_LOADING'}
 }
 
+export const orderUpdate=(items)=>{
+  return {
+    type:'ORDER_UPDATE',
+    payload:items
+  }
+}
+
 export const googleSignInStart = () => ({
   type: UserActionTypes.GOOGLE_SIGN_IN_START
 });
@@ -55,3 +62,4 @@ export const signUpFailure = error => ({
   type: UserActionTypes.SIGN_UP_FAILURE,
   payload: error
 });
+
