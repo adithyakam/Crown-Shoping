@@ -1,21 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { firestore, getCurrentUser } from '../../firebase/firebase.utils';
 import { CheckoutPageContainer } from '../../pages/checkout/checkout.styles';
 import { orderUpdate } from '../../redux/user/user.actions';
 import { CheckoutItemContainer, ImageContainer, QuantityContainer, TextContainer } from '../checkout-item/checkout-item.styles';
 import { OrderContainer } from './Order.styles'
 
-function Order({currentUser,orderUpdate}) {
+function Order({currentUser,orderUpdate,history}) {
 
     // console.log(currentUser.prevOrders,'users');
 
     const [load,setload]=useState(false)
     const [orders,setorders]=useState('')
-
-
-    const history=useHistory()
 
 
     useEffect(() => {
@@ -28,7 +25,6 @@ function Order({currentUser,orderUpdate}) {
                        }).then(ele=>{
                         if(ele )orderUpdate({prevOrders:[...orders,...ele]})
                        })
-                       console.log(currentUser.prevOrders);
 
 
             }else{
@@ -104,4 +100,4 @@ const mds=(dispatch)=>{
     }
 }
 
-export default connect(msp,mds)(Order)
+export default withRouter(connect(msp,mds)(Order))
