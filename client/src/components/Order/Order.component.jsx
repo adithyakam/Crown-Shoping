@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 import { firestore, getCurrentUser } from '../../firebase/firebase.utils';
 import { CheckoutPageContainer } from '../../pages/checkout/checkout.styles';
 import { orderUpdate } from '../../redux/user/user.actions';
@@ -30,7 +30,7 @@ function Order({currentUser,orderUpdate}) {
                        })
                        console.log(currentUser.prevOrders);
 
-                       
+
             }else{
                 history.push('/signin')
             }
