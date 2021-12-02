@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { firestore, getCurrentUser } from '../../firebase/firebase.utils';
 import { CheckoutPageContainer } from '../../pages/checkout/checkout.styles';
 import { orderUpdate } from '../../redux/user/user.actions';
@@ -15,7 +15,7 @@ function Order({currentUser,orderUpdate}) {
     const [orders,setorders]=useState('')
 
 
-    const history=useNavigate()
+    const history=useHistory()
 
 
     useEffect(() => {
@@ -32,7 +32,7 @@ function Order({currentUser,orderUpdate}) {
 
 
             }else{
-                history('/signin')
+                history.push('/signin')
             }
 
     },[])
