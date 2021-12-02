@@ -30,6 +30,7 @@ function Order({currentUser,orderUpdate}) {
                        })
                        console.log(currentUser.prevOrders);
 
+                       
             }else{
                 history.push('/signin')
             }
